@@ -9,11 +9,23 @@ export function createSocket(server) {
   });
 
   // Auth handshake
-
+ io.use((socket, next) => {
+    try {
+      const token = socket.handshake.auth?.token;
+      const user = jwt.verify(token, '123secret');
+      socket.user = user;
+      console.log(user);
+      
+      next();
+    } catch (e) {
+      next(new Error('Unauthorized'));
+    }
+  });
 
   io.on('connection', async (socket) => {
     const userId = socket.user.id;
-
+    console.log(socket.user); 
+    
     // Join all user groups as rooms
     const groups = await Group.find({ members: userId }, '_id');
     const roomIds = groups.map(g => g._id.toString());
@@ -35,9 +47,11 @@ export function createSocket(server) {
     // Send message
     socket.on('message:send', async ({ groupId, text, attachments = [] }) => {
       // Persist
+      console.log(text);
+      
       const msg = await Message.create({ group: groupId, sender: userId, text, attachments, readBy: [userId] });
       await Group.findByIdAndUpdate(groupId, { lastMessage: msg._id });
-      const populated = await msg.populate('sender', 'username');
+      const populated = await msg.populate('sender');
       io.to(groupId).emit('message:new', populated);
     });
 

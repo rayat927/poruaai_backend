@@ -15,6 +15,11 @@ router.get('/group', async (req, res) => {
     res.json(groups)
 })
 
+router.get('/group/messages', async (req, res) => {
+    const messages = await GroupMessage.find({ group: req.query.group_id }).populate('sender').populate('readBy').populate('group') 
+    res.json(messages)
+})
+
 router.put('/group/add_member', (req, res) =>{
     Group.findById(req.query.group_id)
     .then(group => {
