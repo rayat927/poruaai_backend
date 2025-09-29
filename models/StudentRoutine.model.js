@@ -24,6 +24,7 @@ const StudentRoutine = mongoose.Schema({
             ref: 'Subject'
         }
     ],
+    start_time: {type: String},
     activated: {type: Boolean},
     createdAt: {type: Date, default: Date.now},
     updatedAt: {type: Date, default: Date.now}

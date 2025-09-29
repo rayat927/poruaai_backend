@@ -2,7 +2,9 @@ const router = require('express').Router()
 const School = require('../models/School.model')   
 
 router.get('/', async (req, res) => {
-    const schools = await School.find().populate('classes')
+    let queries = {}
+    if(req.query.id) queries._id = req.query.id
+    const schools = await School.find(queries).populate('classes')
     res.json(schools)
 })
 

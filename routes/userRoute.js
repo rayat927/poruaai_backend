@@ -63,6 +63,11 @@ router.get('/', async (req, res) => {
     res.json(users)
 })
 
+router.get('/individual/:id', async (req, res) => {
+    const user = await User.findById(req.params.id)
+    res.json(user)
+})
+
 router.get('/user_with_profession', async (req, res) => {
     const { schoolId, searchText } = req.query;
     const users = await getUsersWithProfession(schoolId, searchText);

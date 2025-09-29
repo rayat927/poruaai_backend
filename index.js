@@ -36,6 +36,7 @@ const studyTechniquesRoute = require('./routes/studyTechniquesRoute')
 const studentRoutine = require('./routes/studyRoutine')
 const zoomSession = require('./routes/zoomSession')
 const chatRoute = require('./routes/chatRoute')
+const notesRoute = require('./routes/notesRoute')
 
 
 // app.use('/', (req, res) => {
@@ -56,6 +57,7 @@ app.use('/study_techniques', studyTechniquesRoute)
 app.use('/student_routine', studentRoutine)
 app.use('/zoom_session', zoomSession)
 app.use('/chat', chatRoute)
+app.use('/notes', notesRoute)
 
 const server = http.createServer(app);
 createSocket(server);

@@ -11,6 +11,11 @@ const AssignmentSubmission = mongoose.Schema({
         ref: 'Student'
     },
     file_link: {type: String},
+    ai_evaluation: {type: Object},
+    manual_evaluation: {
+        score: {type: Number},
+        feedback: {type: String}
+    },
     createdAt: {type: Date, default: Date.now},
     updatedAt: {type: Date, default: Date.now}
 })
