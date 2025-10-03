@@ -1,9 +1,9 @@
-import { Server } from 'socket.io';
-import jwt from 'jsonwebtoken';
-import Group from '../models/Group.model.js';
-import Message from '../models/GroupMessage.model.js';
+const {Server} = require('socket.io');
+const jwt = require('jsonwebtoken');
+const Group = require('../models/Group.model.js');
+const Message = require('../models/GroupMessage.model.js');
 
-export function createSocket(server) {
+module.exports = function createSocket(server) { 
   const io = new Server(server, {
     cors: { origin: '*' },
   });

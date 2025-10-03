@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
     .populate('user_id')
     .populate('school_id')
     .populate('class_id')
+    .populate('section_id')
     res.json(students)  
 })
 
@@ -19,11 +20,16 @@ router.post('/', async (req, res) => {
     const newStudent = new Student(req.body)
     await newStudent.save()
     res.json(newStudent)
-})
+}) 
 
 router.delete('/:id', async (req, res) => {
     const deletedStudent = await Student.findByIdAndDelete(req.params.id)
     res.json(deletedStudent)
+})
+
+router.put('/:id', async (req, res) => {
+    const updatedStudent = await Student.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    res.json(updatedStudent)
 })
 
 module.exports = router

@@ -1,13 +1,7 @@
 const mongoose = require('mongoose')
 
-
-const Exam = mongoose.Schema({
+const ClassRoutine = mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId,
-    title: {type: String},
-    duration: {type: String},
-    total_marks: {type: Number},
-    instructions: {type: String},
-    questions: {type: String},
     class_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Class'
@@ -16,26 +10,37 @@ const Exam = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Section'
     },
-    subject_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Subject'  
-    },
-    file_links: [{type: String}],
     teacher_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Teacher'
     },
-    ai_generated: {
-        type: Boolean
+    subject_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Subject'
     },
+    day: {type: String},
     start_time: {type: String},
     end_time: {type: String},
-    exam_date: {type: Date},
-    is_published: {type: Boolean},
+    school_id : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'School'
+    },
+    description: {type: String},
+    room: {type: String},
     createdAt: {type: Date, default: Date.now},
     updatedAt: {type: Date, default: Date.now}
+}, {
+    toJSON: {
+        virtuals: true
+    }
 })
 
-const model = mongoose.model('Exam', Exam)
+ClassRoutine.virtual('students', {
+    ref: 'Student',
+    localField: 'section_id',
+    foreignField: 'section_id'
+})
+
+const model = mongoose.model('ClassRoutine', ClassRoutine)
 
 module.exports = model

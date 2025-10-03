@@ -15,6 +15,11 @@ const Student = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Class'
     },
+
+    section_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Section'
+    },
   
     roll_no: {type: String},
     student_id: {type: String, unique: true},

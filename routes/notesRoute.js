@@ -16,19 +16,19 @@ const upload = multer({ storage: storage })
 
 
 router.get('/', async (req, res) => {
-    const notes = await Notes.find()
+    const notes = await Notes.find().populate('class_id').populate('user_id')
     res.json(notes)
 })
 
-router.post('/', upload.single('file'), async (req, res) => {
-    const file_link = `${req.protocol}://${req.get('host')}/` + req.file.path
+router.post('/', upload.single('notes'), async (req, res) => {
+    const file_link = `${req.protocol}://${req.get('host')}/` + req.file.filename
     const data = {
-        description: req.body.description,
+        title: req.body.title,
         class_id: req.body.class_id,
-        section_id: req.body.section_id,
+        // section_id: req.body.section_id,
         file_link: file_link,
-        teacher_id: req.body.teacher_id,
-        subject_id: req.body.subject_id
+        user_id: req.body.user_id,
+        // subject_id: req.body.subject_id
     }
     const newUpload = new Notes(data)
     await newUpload.save()

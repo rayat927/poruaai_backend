@@ -11,12 +11,12 @@ const Teacher = mongoose.Schema({
         ref: 'School'
     },
     teaching_experience: {
-        type: mongoose.Schema.Types.Double
+        type: Number
     },
-    teaching_subject: {
+    teaching_subject: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Subject'
-    },
+    }],
     department: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Department'

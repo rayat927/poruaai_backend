@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const {createSocket} = require('./socket/createSocket')
+const createSocket = require('./socket/createSocket')
 const http = require('http')
 require('dotenv').config()
 
@@ -12,7 +12,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true})) 
 
-mongoose.connect(process.env.MONGODB_URL, {
+mongoose.connect('mongodb+srv://fyaz_rayat:123rubaiRayat@cluster0.tndut.mongodb.net/test', {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }).then((result) => console.log('connected to db'))  
@@ -37,6 +37,7 @@ const studentRoutine = require('./routes/studyRoutine')
 const zoomSession = require('./routes/zoomSession')
 const chatRoute = require('./routes/chatRoute')
 const notesRoute = require('./routes/notesRoute')
+const classRoutine = require('./routes/classRoutine')
 
 
 // app.use('/', (req, res) => {
@@ -58,6 +59,7 @@ app.use('/student_routine', studentRoutine)
 app.use('/zoom_session', zoomSession)
 app.use('/chat', chatRoute)
 app.use('/notes', notesRoute)
+app.use('/class_routine', classRoutine)
 
 const server = http.createServer(app);
 createSocket(server);
