@@ -32,7 +32,6 @@ router.post('/', upload.array('files'), async (req, res) => {
         instructions: req.body.instructions,
         subject_id: req.body.subject_id,
         ai_generated: req.body.ai_generated,
-        duration: req.body.duration,
         questions: req.body.questions,
         exam_date: req.body.exam_date,
         start_time: req.body.start_time,

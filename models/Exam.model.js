@@ -4,10 +4,9 @@ const mongoose = require('mongoose')
 const Exam = mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId,
     title: {type: String},
-    duration: {type: String},
     total_marks: {type: Number},
     instructions: {type: String},
-    questions: {type: String},
+    questions: {type: Object},
     class_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Class'
